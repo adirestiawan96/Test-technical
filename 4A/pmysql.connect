@@ -1,0 +1,38 @@
+import pymysql
+
+con = pymysql.connect( host='localhost,
+                       user='root',
+                       password='password',
+                       db='latihan_db')
+
+def create_table():
+    try:
+        with con.cursor() as c:
+
+            # Menghapus Tabel jika sebelumnya telah dibuat
+            c.execute("DROP TABLE IF EXISTS users")
+
+            # Membuat Tabel
+            sql = """
+                CREATE TABLE categories (
+                id int NOT NULL AUTO_INCREMENT,
+                name varchar(50),
+                PRIMARY KEY (id))
+            """
+
+            sql = """
+                CREATE TABLE books (
+                id int NOT NULL AUTO_INCREMENT,
+                name varchar(50),
+                stoke int (20),
+                image ,
+                deskripsi text,
+                category_id int,
+                PRIMARY KEY (id))
+            """
+
+            c.execute(sql)
+            con.commit()
+
+    finally:
+        con.close()
